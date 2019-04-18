@@ -238,7 +238,6 @@ class SvgUri extends Component{
         acc[nodeName] = (this.state.stroke && nodeName === 'stroke' && nodeValue !== 'none') ? this.state.stroke : nodeValue
         return acc
       }, {});
-    console.log("componentAtts", componentAtts, styleAtts, this.state.fill)
 
     Object.assign(componentAtts, styleAtts);
 
