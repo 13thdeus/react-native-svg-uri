@@ -4,15 +4,23 @@ export const camelCaseNodeName = ({nodeName, nodeValue}) => ({nodeName: camelCas
 
 export const removePixelsFromNodeValue = ({nodeName, nodeValue}) => ({nodeName, nodeValue: nodeValue.replace('px', '')});
 
-export const transformStyle = ({nodeName, nodeValue, fillProp}) => {
+export const transformStyle = ({nodeName, nodeValue, fillProp, strokeProp}) => {
   if (nodeName === 'style') {
     return nodeValue.split(';')
       .reduce((acc, attribute) => {
         const [property, value] = attribute.split(':');
         if (property == "")
             return acc;
+        else if(property === 'fill')
+            return {
+                ...acc,
+                [camelCase(property)]: fillProp && property === 'fill' && value !== 'none' ? fillProp : value,
+            };
         else
-            return {...acc, [camelCase(property)]: fillProp && property === 'fill' ? fillProp : value};
+            return {
+                ...acc,
+                [camelCase(property)]: strokeProp && property === 'stroke' && value !== 'none' ? strokeProp : value
+            };
       }, {});
   }
   return null;

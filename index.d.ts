@@ -36,14 +36,14 @@ interface SvgUriProps {
     fill?: string
 
     /**
-     * Invoked when load completes successfully.
+     * Stroke color for the svg object
      */
-    onLoad?: Function
-  
+    stroke?: string;
+
     /**
-     * Fill the entire svg element with same color
+     * Style of the wrapper
      */
-    fillAll?: boolean
+    style?: ViewStyle;
 }
 
 export default class SvgUri extends Component<SvgUriProps, {}> { }
