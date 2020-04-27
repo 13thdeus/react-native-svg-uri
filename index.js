@@ -103,21 +103,21 @@ class SvgUri extends Component{
     this.isComponentMounted = true;
   }
 
-  componentWillReceiveProps (nextProps){
-    if (nextProps.source) {
-      const source = resolveAssetSource(nextProps.source) || {};
-      const oldSource = resolveAssetSource(this.props.source) || {};
+  componentDidUpdate (prevProps){
+    if (this.props.source) {
+      const source = resolveAssetSource(this.props.source) || {};
+      const oldSource = resolveAssetSource(prevProps.source) || {};
       if(source.uri !== oldSource.uri){
         this.fetchSVGData(source.uri);
       }
     }
 
-    if (nextProps.svgXmlData !== this.props.svgXmlData) {
-      this.setState({ svgXmlData: nextProps.svgXmlData });
+    if (this.props.svgXmlData !== prevProps.svgXmlData) {
+      this.setState({ svgXmlData: this.props.svgXmlData });
     }
 
-    if (nextProps.fill !== this.props.fill) {
-      this.setState({ fill: nextProps.fill });
+    if (this.props.fill !== this.props.fill) {
+      this.setState({ fill: this.props.fill });
     }
   }
 
@@ -140,13 +140,13 @@ class SvgUri extends Component{
 
     return responseXML;
   }
-   
-  // Remove empty strings from children array  
+
+  // Remove empty strings from children array
   trimElementChilden(children) {
     for (child of children) {
       if (typeof child === 'string') {
         if (child.trim.length === 0)
-          children.splice(children.indexOf(child), 1); 
+          children.splice(children.indexOf(child), 1);
       }
     }
   }
